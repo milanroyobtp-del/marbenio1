@@ -1,0 +1,12 @@
+# Dossiers système
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Serveur local
+scratchpad/
+*.ps1
+
+# Éditeurs
+.vscode/
+*.swp

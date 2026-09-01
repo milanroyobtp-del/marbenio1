@@ -1,0 +1,112 @@
+MARBENIO — site de vente d'outfits complets
+============================================
+
+RÈGLE DU SITE : 1 KIT PAR COMMANDE
+----------------------------------
+Le stock est limité, donc le panier ne peut contenir qu'UN SEUL ensemble.
+- Si le client ajoute un autre look, celui-ci REMPLACE le précédent
+  (avec un message clair à l'écran).
+- La règle est affichée : bandeau du haut, page d'accueil, fiche produit,
+  panier et pied de page.
+- Pour changer le texte de cette règle : "data.js", lignes
+  LIMITE_TITRE et LIMITE_TEXTE.
+- Pour changer le bandeau du haut : "data.js", ligne ANNONCE.
+
+
+OUVRIR LE SITE
+--------------
+Double-clique sur "index.html".
+
+Pour le mettre EN LIGNE (gratuit) : va sur netlify.com, crée un compte,
+puis glisse-dépose le dossier "site" entier sur la page "Sites".
+Tu obtiens une adresse du type https://marbenio.netlify.app
+
+
+TES COORDONNÉES DE COMMANDE (à faire en premier !)
+--------------------------------------------------
+Dans "data.js", bloc CONTACT :
+  whatsapp : ton numéro au format international SANS le "+"
+             (ex. France : 33612345678)
+  email    : ton email de réception des commandes
+  instagram: le lien de ton compte
+
+Tant que ce n'est pas modifié, le bouton WhatsApp pointe vers un
+numéro fictif (33600000000).
+
+
+MODIFIER LES OUTFITS
+--------------------
+Ouvre "data.js" avec le Bloc-notes (ou VS Code).
+Chaque look est un bloc :
+
+  {
+    id: "o01",
+    nom: "Total Look Bordeaux Running",
+    tag: "total-look",
+    description: "...",
+    pieces: ["Veste...", "Tee-shirt...", ...],
+    image: "images/xxxx.jpg",
+  },
+
+- "nom", "description", "pieces" : libres.
+- "tag" : sert aux filtres de la boutique. Valeurs possibles :
+    "total-look" | "veste" | "maille" | "essentiel"
+  (les libellés se changent dans le bloc FAMILLES)
+- Ajoute  prix: 89.99,  pour un prix différent du prix par défaut.
+  (écris le point, pas la virgule : 89.99 — le site affiche "89,99 €")
+- Ajoute  stock: false, pour afficher "Épuisé" (bouton désactivé).
+- Les looks 26 à 54 ont des titres génériques ("Signature — Look 26") :
+  remplace-les par de vrais noms quand tu veux.
+
+Pour supprimer un look : efface son bloc entre { }.
+Pour changer l'ordre : déplace les blocs.
+
+
+CHANGER LE NOM DE MARQUE
+------------------------
+"data.js", ligne :  const MARQUE = "MARBENIO";
+
+
+CHANGER LE PRIX DE TOUS LES LOOKS D'UN COUP
+-------------------------------------------
+"data.js", ligne :  const PRIX_DEFAUT = 79.99;
+Mets la valeur que tu veux, avec un POINT décimal (79.99, 85, 99.90).
+Tous les looks qui n'ont pas de "prix:" perso suivent automatiquement.
+
+
+COMMENT MARCHE UNE COMMANDE
+---------------------------
+1. Le client choisit un look et l'ajoute au panier (1 seul possible).
+2. Il va au panier et clique "Commander via WhatsApp" ou "par email".
+3. Un message pré-rempli s'ouvre : look choisi, pièces, total,
+   + champs à compléter (nom, adresse, taille haut, taille bas, pointure).
+4. Tu réponds avec la confirmation de dispo et le lien de paiement
+   (virement, PayPal, Stripe...), puis tu expédies.
+
+
+AJOUTER DE NOUVELLES PHOTOS
+---------------------------
+Mets les fichiers dans le dossier "images/", puis ajoute un bloc dans
+"data.js" avec le bon nom de fichier.
+
+CONSEIL : les photos actuelles sont très lourdes (1536 x 2752 px).
+Avant la mise en ligne, réduis-les à ~900 px de large en JPG qualité 80
+(site gratuit : squoosh.app). Le site chargera beaucoup plus vite,
+surtout sur mobile.
+
+
+FICHIERS
+--------
+index.html   la boutique (accueil + grille + concept)
+outfit.html  la fiche d'un look
+panier.html  le panier et la commande
+data.js      TOUT ce que tu peux modifier (looks, prix, contact, textes)
+app.js       la logique (panier, filtres, rendu) — ne pas toucher
+styles.css   le design — ne pas toucher sauf si tu sais faire
+images/      les photos
+
+
+PAIEMENT CARTE AUTOMATIQUE (plus tard)
+--------------------------------------
+Pour encaisser la CB directement sur le site, il faut brancher Stripe.
+Dis-le moi quand tu veux, je l'ajoute.
