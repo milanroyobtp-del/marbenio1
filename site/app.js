@@ -328,7 +328,6 @@ function renderGrid(el){
           <a class="card__name" href="outfit.html?id=${o.id}">${esc(o.nom)}</a>
           <span class="card__price">${euro(o.prix)}</span>
         </div>
-        <p class="card__desc">${esc(o.description)}</p>
         <span class="card__count">${(o.pieces || []).length} pièces incluses · 1 par commande</span>
       </div>
     </article>`).join("");
