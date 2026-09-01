@@ -21,7 +21,14 @@ const DEVISE = "€";
 const MARQUE = "MARBENIO";
 
 /* Bandeau tout en haut du site */
-const ANNONCE = "Stock limité — 1 kit par commande · Livraison offerte";
+const ANNONCE = "Livraison GRATUITE en 7 jours · Retour sous 14 jours garanti · 1 kit par commande";
+
+/* Les 3 garanties mises en avant sur le site (bandeau sous le hero + fiche produit) */
+const GARANTIES = [
+  { icone: "truck",  titre: "Livraison gratuite",      texte: "Offerte sur toutes les commandes, sans minimum." },
+  { icone: "clock",  titre: "Livrée en 7 jours",       texte: "Expédition sous 24 h, chez toi en 7 jours max." },
+  { icone: "retour", titre: "Retour sous 14 jours",    texte: "Garanti. Ça ne te va pas ? Tu renvoies, on rembourse." },
+];
 
 /* Règle affichée partout : un seul ensemble par commande */
 const LIMITE_TITRE = "1 kit par commande";

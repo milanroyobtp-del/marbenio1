@@ -30,7 +30,25 @@ const ICONS = {
   truck:'<svg viewBox="0 0 24 24"><path d="M3 7h11v10H3zM14 10h4l3 3v4h-7z"/><circle cx="7" cy="18" r="1.6"/><circle cx="17.5" cy="18" r="1.6"/></svg>',
   chat: '<svg viewBox="0 0 24 24"><path d="M21 12a8 8 0 0 1-11.7 7.1L4 20.5l1.4-5.1A8 8 0 1 1 21 12Z"/></svg>',
   hang: '<svg viewBox="0 0 24 24"><path d="M12 8a2.2 2.2 0 1 1 2.2-2.2M12 8v2.5L4 16h16l-8-5.5"/></svg>',
+  clock:'<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7.5V12l3.2 2"/></svg>',
+  retour:'<svg viewBox="0 0 24 24"><path d="M4 9h11a5 5 0 0 1 0 10H8"/><path d="M8 5 4 9l4 4"/></svg>',
 };
+
+/* Bandeau des 3 garanties (livraison gratuite / 7 jours / retour 14 jours) */
+function trustBand(){
+  if (typeof GARANTIES === "undefined" || !GARANTIES.length) return "";
+  return `
+    <div class="trust">
+      ${GARANTIES.map(g => `
+        <div class="trust__item">
+          <span class="trust__icon">${ICONS[g.icone] || ICONS.check}</span>
+          <div>
+            <b>${esc(g.titre)}</b>
+            <span>${esc(g.texte)}</span>
+          </div>
+        </div>`).join("")}
+    </div>`;
+}
 
 /* ============================================================
    Panier — au maximum UN seul kit
@@ -145,7 +163,7 @@ function buildChrome(){
       <a href="index.html#looks">Tous les looks</a>
       <a href="index.html#concept">Le concept</a>
       <a href="panier.html">Panier</a>
-      <div class="mobile-nav__foot">${esc(LIMITE_TITRE)} — ${euro(PRIX_DEFAUT)} l'ensemble</div>
+      <div class="mobile-nav__foot">${euro(PRIX_DEFAUT)} l'ensemble · Livraison gratuite · Retour 14 j</div>
     </nav>
   `);
 
@@ -185,7 +203,7 @@ function buildChrome(){
       </div>
       <div class="shell footer__bar">
         <span>© ${new Date().getFullYear()} ${esc(MARQUE)}</span>
-        <span>${esc(LIMITE_TITRE)} · Livraison 3 à 7 jours</span>
+        <span>Livraison gratuite en 7 jours · Retour sous 14 jours garanti</span>
       </div>
     </footer>
   `);
@@ -277,14 +295,15 @@ function renderHero(el){
         <div class="hero__stats">
           <div><b>${OUTFITS.length}</b><span>Looks</span></div>
           <div><b>${euro(PRIX_DEFAUT)}</b><span>L'ensemble</span></div>
-          <div><b>3–7 j</b><span>Livraison</span></div>
+          <div><b>7 j</b><span>Livraison gratuite</span></div>
         </div>
       </div>
       <a class="hero__media" href="outfit.html?id=${vedette.id}">
         <img src="${vedette.image}" alt="${esc(vedette.nom)}" fetchpriority="high">
         <span class="hero__tag">${esc(vedette.nom)} — ${euro(vedette.prix)}</span>
       </a>
-    </div>`;
+    </div>
+    <div class="shell">${trustBand()}</div>`;
 }
 
 function renderFilters(el){
@@ -378,10 +397,11 @@ function renderProduct(el){
         <a class="btn btn--ghost btn--block" href="index.html#looks">Voir les autres looks</a>
       </div>
 
+      ${trustBand()}
+
       <div class="product__note">
         <div>${ICONS.hang}<span>Tenue complète coordonnée : haut, bas, chaussures et accessoires.</span></div>
-        <div>${ICONS.truck}<span>Livraison offerte — 3 à 7 jours.</span></div>
-        <div>${ICONS.chat}<span>Tailles à préciser à la commande (WhatsApp ou email).</span></div>
+        <div>${ICONS.chat}<span>Tailles à préciser au moment de la commande.</span></div>
       </div>
     </div>`;
 
@@ -458,13 +478,15 @@ function renderCartPage(){
     </div>
 
     ${limiteBox(false)}
+    ${trustBand()}
 
     <div class="cartpage__foot">
       <div class="howto">
         <h4 class="eyebrow" style="margin-bottom:10px">Comment finaliser</h4>
         <b>1.</b> Clique sur « Payer en ligne » pour régler le montant.<br>
         <b>2.</b> Remplis tes infos : nom, adresse et tailles.<br>
-        <b>3.</b> On expédie sous 24 h, livraison offerte en 3 à 7 jours.<br><br>
+        <b>3.</b> On expédie sous 24 h, livraison gratuite en 7 jours.<br>
+        <b>4.</b> Ça ne te va pas ? Retour sous 14 jours, garanti.<br><br>
         <span style="color:var(--muted)">Envie d'un deuxième look ? Repasse une commande une fois celle-ci confirmée.</span>
       </div>
       <div class="summary">
